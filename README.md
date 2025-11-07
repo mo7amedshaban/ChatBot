@@ -1,6 +1,6 @@
 # Chatbot Demo
 <p align="center">
-  <img src="one.png" width="500" style="margin:5px"/>
+  <img src="one.png" width="500" style="margin:30px"/>
   <img src="two.png" width="500"/>
 </p>
 
