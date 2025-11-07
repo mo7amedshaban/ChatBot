@@ -142,3 +142,6 @@ node_modules/
 .DS_Store
 
 >>>>>>> d693722 (Chat Bot)
+
+# Local Netlify folder
+.netlify

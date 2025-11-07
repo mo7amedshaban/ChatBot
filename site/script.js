@@ -125,7 +125,7 @@ async function sendMessage(contentText) {
 
   try {
     currentStreamController = new AbortController();
-    const resp = await fetch('/api/chat/stream', {
+    const resp = await fetch('/.netlify/functions/chat-proxy/stream', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ model, messages: conversation }),
@@ -262,7 +262,7 @@ async function sendMessage(contentText) {
 
       // fallback to non-streaming request (final content)
       try {
-        const fallbackResp = await fetch('/api/chat', {
+        const fallbackResp = await fetch('/.netlify/functions/chat-proxy', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ model, messages: conversation })

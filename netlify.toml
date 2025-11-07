@@ -4,3 +4,13 @@ publish = "site"
 
 # هذا يخبر Netlify بمكان الدوال السحابية الخاصة بك
 functions = "netlify/functions"
+
+# Redirect API calls to the single chat-proxy function.
+# This makes requests like /api/chat and /api/chat/stream be handled
+# by netlify/functions/chat-proxy.js. We use a 200 rewrite so the
+# original path is available to the function via event.path.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/chat-proxy"
+  status = 200
+  force = true
