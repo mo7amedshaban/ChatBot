@@ -3,7 +3,7 @@
   const form = document.getElementById('chatForm');
   const input = document.getElementById('userInput');
   const messages = document.getElementById('messages');
-  const SEND_URL = '/api/chat';
+  const SEND_URL = '/.netlify/functions/chat-proxy';//'/api/chat';
   const FIXED_MODEL = 'gpt-4o-mini';
 
   // conversation in OpenAI 'messages' shape

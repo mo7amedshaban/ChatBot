@@ -1,0 +1,6 @@
+[build]
+# هذا يخبر Netlify بأن ملفات الواجهة الأمامية موجودة داخل مجلد /site
+publish = "site"
+
+# هذا يخبر Netlify بمكان الدوال السحابية الخاصة بك
+functions = "netlify/functions"
