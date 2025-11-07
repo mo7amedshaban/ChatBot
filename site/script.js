@@ -136,7 +136,7 @@ async function sendMessage(contentText) {
       const errText = await resp.text();
       console.error('OpenAI proxy error:', errText);
       // simulate typing an error-friendly fallback so user sees typing
-      await simulateTyping(assistantEl.content, 'لا أستطيع الاتصال الآن، هذه رسالة محاكاة.');
+      await simulateTyping(assistantEl.content, 'I cannot connect right now, this is a simulated message.');
       setLoading(false);
       return;
     }
