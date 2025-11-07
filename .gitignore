@@ -140,7 +140,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 =======
 # Ignore environment files and node modules
-.env
 server/node_modules/
 node_modules/
 .DS_Store
