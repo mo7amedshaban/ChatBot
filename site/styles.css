@@ -1,0 +1,174 @@
+/* Basic chat layout */
+/* Replaced CSS variables with concrete color values to avoid unresolved custom property errors */
+/* Palette:
+   bg-0: #0b1320
+   bg-1: #071227
+   panel: #071226
+   muted: #97a6bf
+   accent: #4f46e5
+   accent-2: #06b6d4
+   text: #e6eef8
+   me: #0a2340
+   you: #063425
+*/
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#0b1320 0%, #071227 100%);color:#e6eef8;-webkit-font-smoothing:antialiased}
+
+.app{max-width:980px;margin:2rem auto;display:flex;flex-direction:column;min-height:calc(100vh - 3rem);border-radius:14px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 12px 40px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:1px solid rgba(255,255,255,0.03);background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015))}
+.header-left{display:flex;align-items:center;gap:12px}
+.logo{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#4f46e5,#06b6d4);font-weight:700;color:white}
+.header h1{font-size:1.125rem;margin:0}
+.header .controls{display:flex;gap:8px}
+
+.chat-area{flex:1;display:flex;flex-direction:column;padding:18px;gap:12px;min-height:420px;overflow:hidden}
+.messages-wrap{flex:1;overflow:auto;padding:8px 6px}
+.messages{display:flex;flex-direction:column;gap:12px;max-width:880px;margin:0 auto;padding-bottom:12px}
+
+.msg-row{display:flex;gap:10px;align-items:flex-end;justify-content:flex-start}
+.msg-row.user{justify-content:flex-end}
+.msg-row.assistant{justify-content:flex-start}
+.msg{padding:12px 14px;border-radius:14px;color:#e6eef8;font-size:0.96rem;line-height:1.35;max-width:78%;box-shadow:0 6px 18px rgba(2,6,23,0.45)}
+.msg.assistant{background:linear-gradient(180deg,#073a23,#0b5a37);align-self:flex-start;border-top-left-radius:6px}
+.msg.user{background:linear-gradient(180deg,#083056,#0b2d4a);align-self:flex-end;border-top-right-radius:6px;color:#e6f7ff}
+
+.avatar{width:36px;height:36px;border-radius:10px;flex:0 0 36px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+.avatar.assistant{background:linear-gradient(135deg,#0b5a37,#065f32)}
+.avatar.user{background:linear-gradient(135deg,#0b2d4a,#083056)}
+
+.msg-meta{display:block;margin-top:6px;font-size:12px;color:#97a6bf}
+
+.composer{position:sticky;bottom:0;background:transparent;padding:12px;border-top:1px solid rgba(255,255,255,0.02);display:flex;align-items:center;gap:12px}
+.composer-inner{max-width:880px;margin:0 auto;display:flex;gap:10px;width:100%;align-items:center}
+.composer textarea{flex:1;resize:vertical;min-height:48px;max-height:160px;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit;outline:none}
+.composer-inner {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  padding: 12px;
+}
+
+/* textarea wrapper to allow centered overlay */
+.textarea-wrap {
+  position: relative;
+  flex: 1 1 auto;
+}
+
+/* ensure textarea content is rendered above the overlay */
+textarea#userInput {
+  position: relative; /* make z-index work */
+  z-index: 2;
+  width: 100%;
+  min-height: 56px;
+  max-height: 200px;
+  resize: vertical;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;        /* soft light border */
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+  transition: box-shadow 150ms ease, border-color 150ms ease, transform 80ms ease;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #111827;
+  caret-color: #111827;
+}
+
+/* overlay placeholder centered both horizontally and vertically */
+.overlay-placeholder {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  color: #9ca3af;                   /* muted grey text */
+  font-size: 15px;
+  white-space: nowrap;
+  transition: opacity 120ms ease, transform 120ms ease, visibility 120ms;
+  opacity: 1;
+  z-index: 1; /* sit under the textarea text */
+}
+
+/* hide overlay when textarea has content or on focus */
+/* prefer class toggle (more reliable), but keep placeholder-shown fallback */
+.textarea-wrap.has-content .overlay-placeholder,
+textarea#userInput:focus + .overlay-placeholder,
+textarea#userInput:not(:placeholder-shown) + .overlay-placeholder {
+  opacity: 0;
+  transform: translate(-50%, -40%);
+  visibility: hidden;
+}
+
+/* focus state */
+textarea#userInput:focus {
+  outline: none;
+  border-color: #6366f1;            /* subtle purple accent */
+  box-shadow: 0 6px 20px rgba(99,102,241,0.12);
+  transform: translateZ(0);
+}
+
+/* hide native placeholder text so overlay is visible */
+textarea#userInput::placeholder {
+  color: transparent;
+}
+
+.btn{appearance:none;border:0;padding:.55rem .9rem;border-radius:10px;cursor:pointer;font-weight:700}
+.btn-primary{background:linear-gradient(90deg,#4f46e5,#06b6d4);border:none;color:white;cursor:pointer;padding:10px 14px}
+.btn-secondary{background:transparent;color:#97a6bf;border:1px solid rgba(255,255,255,0.04);padding:8px 12px}
+.model-badge{font-size:13px;padding:6px 10px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:#97a6bf}
+
+.footer{padding:14px;text-align:center;color:#97a6bf;font-size:13px}
+
+/* typing cursor for streaming messages */
+.msg-content.typing::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: rgba(255,255,255,0.8);
+  margin-left: 6px;
+  vertical-align: text-bottom;
+  animation: typingBlink 1s steps(2, start) infinite;
+}
+
+@keyframes typingBlink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Keep bubble hidden until content arrives to avoid background showing before text */
+.msg.empty {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 180ms ease, transform 180ms ease;
+  /* remove visual chrome while empty */
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.msg.empty .msg-content { color: transparent; }
+.msg.empty .msg-meta { display: none; }
+
+/* When we add .transition the bubble fades in to the normal background (defined by .msg.user/.assistant) */
+.msg.transition {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width:780px){
+  .app{margin:0;height:100vh;border-radius:0}
+  .messages{padding-left:6px;padding-right:6px}
+  .composer-inner{padding:0 12px}
+  .avatar{width:34px;height:34px}
+}
+
+@media (max-width:600px){
+  .msg{max-width:100%;border-radius:10px}
+  .avatar{display:none}
+  .composer textarea{min-height:44px}
+}
+
+/* small visual polish for code blocks or inline code */
+code{background:rgba(255,255,255,0.02);padding:2px 6px;border-radius:6px;font-size:0.92em;color:#e6eef8}

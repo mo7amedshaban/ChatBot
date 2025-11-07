@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chatbot</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">CB</div>
+        <h1>Chatbot</h1>
+      </div>
+      <div class="controls">
+        <button id="newChatBtn" class="btn btn-secondary">New Chat</button>
+      </div>
+    </header>
+
+    <main class="chat-area" id="chatArea">
+      <div class="messages-wrap">
+        <div id="messages" class="messages" aria-live="polite"></div>
+      </div>
+    </main>
+
+    <form id="chatForm" class="composer" action="javascript:void(0);">
+      <div class="composer-inner" style="display:flex;gap:8px;align-items:center;">
+        <div class="textarea-wrap" style="flex:1;">
+          <!-- keep a blank native placeholder so :placeholder-shown works -->
+          <textarea id="userInput" class="btn btn-primary text-input" aria-label="Your message" placeholder=" " rows="2" required style="width:100%;min-height:48px;resize:none;padding:10px;box-sizing:border-box;"></textarea>
+          <span class="overlay-placeholder">Type your message...</span>
+        </div>
+        <div class="composer-controls" style="display:flex;align-items:center;">
+          <!-- Fixed model: gpt-4o-mini. No selection allowed per user's request. -->
+          <input type="hidden" id="model" value="gpt-4o-mini">
+          <button id="sendBtn" type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </form>
+
+    
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
