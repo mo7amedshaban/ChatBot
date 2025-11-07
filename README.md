@@ -1,4 +1,10 @@
 # Chatbot Demo
+<div align="center">
+  <img src="one.png" width="500" style="margin:30px"/>
+  <br><br>
+  <img src="two.png" width="500" style="margin:30px"/>
+</div>
+
 
 This workspace contains a simple responsive chat UI (`/site`) and a minimal Node.js proxy (`/server`) that forwards requests to the OpenAI Chat Completions API.
 
